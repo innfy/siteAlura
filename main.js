@@ -1,95 +1,80 @@
-const botoes = document.querySelectorAll(".botao");
-const textos = document.querySelectorAll(".aba-conteudo");
+<script src="main.js"></script>
 
-for (let i = 0; i < botoes.length; i++) {
-  botoes[i].onclick = function () {
-    for (let j = 0; j < botoes.length; j++) {
-      botoes[j].classList.remove("ativo");
-      textos[j].classList.remove("ativo");
+const numeroSenha = document.querySelector('.parametro-senha__texto');
+let tamanhoSenha = 12;
+numeroSenha.textContent = tamanhoSenha;
+const letrasMaiusculas = 'ABCDEFGHIJKLMNOPQRSTUVXYWZ';
+const letrasMinusculas = 'abcdefghijklmnopqrstuvxywz';
+const numeros = '0123456789';
+const simbolos = '!@%*?';
+const botoes = document.querySelectorAll('.parametro-senha__botao');
+const campoSenha = document.querySelector('#campo-senha');
+const checkbox = document.querySelectorAll('.checkbox');
+const numeroSenha = document.querySelector('.parametro-senha__texto');
+
+campoSenha.value = letrasMaiusculas;
+
+
+function geraSenha(){
+    let alfabeto = '';
+    if (checkbox[0].checked){
+        alfabeto = alfabeto + letrasMaiusculas;
+    }
+    if (checkbox[1].checked){
+        alfabeto = alfabeto + letrasMinusculas;
+    }
+    if (checkbox[2].checked){
+        alfabeto = alfabeto + numeros;
+    }
+    if (checkbox[3].checked){
+        alfabeto = alfabeto + simbolos;
+    }
+    console.log(alfabeto);
+    let senha = '';
+    for (let i = 0; i < tamanhoSenha;i++){
+        let numeroAleatorio = Math.random()*alfabeto.length;
+        numeroAleatorio = Math.floor(numeroAleatorio);
+        senha = senha + alfabeto[numeroAleatorio];
+    }
+    campoSenha.value = senha;
+}
+
+function diminuiTamanho(){
+    if (tamanhoSenha > 1){
+       // tamanhoSenha = tamanhoSenha-1;
+        tamanhoSenha--;
+    }
+    numeroSenha.textContent = tamanhoSenha;
+    geraSenha();
+}
+function aumentaTamanho(){
+    if (tamanhoSenha < 20){
+       // tamanhoSenha = tamanhoSenha+1;
+       tamanhoSenha++;
+    }
+    numeroSenha.textContent = tamanhoSenha;
+    geraSenha();
+}
+
+for (let i = 0; i < tamanhoSenha;i++){
+        let numeroAleatorio = Math.random()*alfabeto.length;
+        numeroAleatorio = Math.floor(numeroAleatorio);
+        senha = senha + alfabeto[numeroAleatorio];
     }
 
-    botoes[i].classList.add("ativo");
-    textos[i].classList.add("ativo");
-  };
+for (i=0; i < checkbox.length;i++){
+    checkbox[i].onclick = geraSenha;
+}
+if (checkbox[1].checked){
+    alfabeto = alfabeto + letrasMinusculas;
+}
+if (checkbox[2].checked){
+    alfabeto = alfabeto + numeros;
+}
+if (checkbox[3].checked){
+    alfabeto = alfabeto + simbolos;
 }
 
-const contadores = document.querySelectorAll(".contador");
-const tempoObjetivo1 = new Date("2023-10-05T00:00:00");
-let tempoAtual = new Date();
+console.log(checkbox[0].checked);
 
-contadores[0].textContent = tempoObjetivo1 - tempoAtual;
-
-function calculaTempo(tempoObjetivo) {
-  let tempoAtual = new Date();
-  let tempoFinal = tempoObjetivo - tempoAtual;
-  let segundos = Math.floor(tempoFinal / 1000);
-  let minutos = Math.floor(segundos / 60);
-  let horas = Math.floor(minutos / 60);
-  let dias = Math.floor(horas / 24);
-  
-if (tempoFinal > 0) {
-  return (
-    dias +
-    " dias " +
-    horas +
-    " horas " +
-    minutos +
-    " minutos " +
-    segundos +
-    " segundos"
-  );
-} else {
-  return "Prazo Finalizado";
-}
-}
-
-segundos %= 60;
-minutos %= 60;
-horas %= 24;
-
-const tempoObjetivo2 = new Date("2023-12-05T00:00:00");
-const tempoObjetivo3 = new Date("2023-12-30T00:00:00");
-const tempoObjetivo4 = new Date("2024-02-01T00:00:00");
-
-contadores[0].textContent = calculaTempo(tempoObjetivo1);
-contadores[1].textContent = calculaTempo(tempoObjetivo2);
-contadores[2].textContent = calculaTempo(tempoObjetivo3);
-contadores[3].textContent = calculaTempo(tempoObjetivo4);
-
-const tempos = [tempoObjetivo1, tempoObjetivo2, tempoObjetivo3, tempoObjetivo4];
-
-contadores[0].textContent = calculaTempo(tempoObjetivo1); //Antes
-
-contadores[0].textContent = calculaTempo(tempos[0]); // Depois
-
-// Para cada objetivo na lista de contadores
-for (let i = 0; i < contadores.length; i++) {
-  //Calcular o tempo usando a função e associá-lo ao objetivo
-  contadores[i].textContent = calculaTempo(tempos[i]);
-}
-
-function atualizaCronometro() {
-  for (let i = 0; i < contadores.length; i++) {
-    contadores[i].textContent = calculaTempo(tempos[i]);
-  }
-}
-
-function comecaCronometro() {
-  atualizaCronometro();
-  setInterval(atualizaCronometro, 1000);
-}
-
-comecaCronometro();
-
-function comecaCronometro(){
-      setInterval(atualizaCronometro(),1000);
-}
-
-console.log(Math.ceil(4.2));  // Saída: 5
-console.log(Math.ceil(9.8));  // Saída: 10
-
-console.log(Math.floor(7.9));  // Saída: 7
-console.log(Math.floor(2.1));  // Saída: 2
-
-console.log(Math.round(3.4));  // Saída: 3
-console.log(Math.round(5.7));  // Saída: 6
+console.log(botoes)
