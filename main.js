@@ -39,23 +39,23 @@ function geraSenha() {
         senha = senha + alfabeto[numeroAleatorio];
     }
     campoSenha.value = senha;
-
-function classificaSenha(tamanhoAlfabeto){
-    let entropia = tamanhoSenha * Math.log2(tamanhoSenha);
+    function classificaSenha(tamanhoAlfabeto){
+    let entropia = tamanhoSenha * Math.log2(alfabeto.length);
     console.log(entropia);
     forcaSenha.classList.remove('fraca','media','forte');
-    if (entropia > 57){
+    if (tamanhoSenha > 11){
         forcaSenha.classList.add('forte');
-    } else if (entropia > 35 && entropia < 57) {
+    } else if (tamanhoSenha > 5 && tamanhoSenha < 12) {
         forcaSenha.classList.add('media');
-    } else if (entropia <= 35){
+    } else if (tamanhoSenha <= 5){
         forcaSenha.classList.add('fraca');
     }
+}
+}
+
 
 const valorEntropia = document.querySelector('.entropia');
 valorEntropia.textContent = 2**Math.floor(entropia)/(100e6*60*60*24);
-}
-}
 
 function diminuiTamanho(){
     if (tamanhoSenha > 1){
